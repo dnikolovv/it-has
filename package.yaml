@@ -1,0 +1,40 @@
+name:                it-has
+version:             0.1.0.0
+github:              "dnikolovv/it-has"
+license:             BSD3
+author:              "Dobromir Nikolov"
+maintainer:          "dnikolovv@hotmail.com"
+copyright:           "Dobromir Nikolov"
+category:            Data
+synopsis:            Automatically derivable Has instances.
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/dnikolovv/it-has#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+- generic-lens
+
+library:
+  source-dirs: src
+
+tests:
+  it-has-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - it-has
