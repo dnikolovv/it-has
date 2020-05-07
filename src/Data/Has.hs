@@ -33,13 +33,10 @@ module Data.Has where
 import           Data.Generics.Internal.VL.Lens (over)
 import           Data.Generics.Product.Typed
 
-type Lens t a = forall f. Functor f => (a -> f a) -> t -> f t
-
 -- | A type class for an extensible product.
 class Has a b where
   getter :: b -> a
   modifier :: (a -> a) -> b -> b
-  hasLens :: Lens b a
 
   default getter :: HasType a b => b -> a
   getter = getTyped @a
@@ -47,10 +44,6 @@ class Has a b where
   default modifier :: HasType a b => (a -> a) -> b -> b
   modifier = over $ typed @a
 
-  default hasLens :: HasType a b => Lens b a
-  hasLens = typed
-
 instance Has a a where
   getter = id
   modifier = id
-  hasLens afa t = (\a -> modifier (const a) t) <$> afa (getter t)
