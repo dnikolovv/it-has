@@ -3,6 +3,7 @@
 {-# LANGUAGE RankNTypes            #-}
 {-# LANGUAGE ScopedTypeVariables   #-}
 {-# LANGUAGE TypeApplications      #-}
+{-# LANGUAGE FlexibleInstances     #-}
 
 {-|
 Module      : Data.Has
@@ -48,3 +49,8 @@ class Has a b where
 
   default hasLens :: HasType a b => Lens b a
   hasLens = typed
+
+instance Has a a where
+  getter = id
+  modifier = id
+  hasLens afa t = (\a -> modifier (const a) t) <$> afa (getter t)
