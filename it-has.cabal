@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 337cc3cd2a5bdb530df8d9d8dfa1fb3ce79053789ab8792774ab451abc5ca70b
+-- hash: 95c208b58075854c7b49858ff04b7e4f9aec69d74e5baef59c2f99ebb3bb7896
 
 name:           it-has
 version:        0.1.0.0
@@ -36,7 +36,7 @@ library
       src
   build-depends:
       base >=4.7 && <5
-    , generic-lens
+    , generic-lens >=1.2.0 && <1.3
   default-language: Haskell2010
 
 test-suite it-has-test
@@ -49,6 +49,6 @@ test-suite it-has-test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
-    , generic-lens
+    , generic-lens >=1.2.0 && <1.3
     , it-has
   default-language: Haskell2010
