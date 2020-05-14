@@ -1,3 +1,4 @@
+[![Hackage](https://img.shields.io/hackage/v/it-has.svg?style=flat)](http://hackage.haskell.org/package/it-has)
 ![Haskell CI](https://github.com/dnikolovv/it-has/workflows/Haskell%20CI/badge.svg)
 
 # it-has
