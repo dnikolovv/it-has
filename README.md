@@ -1,18 +1,48 @@
 # it-has
 
-This is a drop-in replacement of [data-has](http://hackage.haskell.org/package/data-has). The only difference with the original package is that this one uses `Generic` for its default implementation.
+This is a (nearly) drop-in replacement of [data-has](http://hackage.haskell.org/package/data-has). The differences with the original package are that this one misses `hasLens` and uses `Generic` for its default implementation. Your initial reaction may be to start mourning the loss of `hasLens`, but first take a look at the cool things you can do without it!
 
-This allows you to automatically derive instances for `Has`, e.g.
+Reduce boilerplate! You can trim down this:
 
 ```haskell
 data Config =
- Config
-   { configLogEnv :: LogEnv
-   , configDbConn :: DbConnection
-   } deriving (Generic, Has LogEnv, Has DbConnection)
+  Config
+    { configLogEnv      :: !LogEnv
+    , configJwtSettings :: !JWTSettings
+    , configMetrics     :: !Metrics
+    , configEkgStore    :: !EKG.Store }
+
+-- Heavy manual instances, data-has only has default implementation for tuples
+instance Has LogEnv Config where
+  getter = configLogEnv
+  modifier f v = v { configLogEnv = f (configLogEnv v) }
+
+instance Has JWTSettings Config where
+  getter = configJwtSettings
+  modifier f v = v { configJwtSettings = f (configJwtSettings v) }
+
+instance Has Metrics where
+  getter = configMetrics
+  modifier f v = v { configMetrics = f (configJwtSconfigMetricsettings v) }
+
+instance Has EKG.Store Config where
+  getter = configEkgStore
+  modifier f v = v { configEkgStore = f (configEkgStore v) }
 ```
 
-Another thing you can do with `it-has` which you cannot with `data-has` is a trick to "force" a sum type to have a specific field type defined.
+To this:
+
+```haskell
+data Config =
+  Config
+    { configLogEnv      :: !LogEnv
+    , configJwtSettings :: !JWTSettings
+    , configMetrics     :: !Metrics
+    , configEkgStore    :: !EKG.Store
+    } deriving (Generic, Has LogEnv, Has JWTSettings, Has Metrics, Has EKG.Store)
+```
+
+Another trick is that you can "force" a sum type to have a specific field defined.
 
 E.g. you may want to define an `Error` type and enforce that it always has an `ErrorText` attached to it.
 
