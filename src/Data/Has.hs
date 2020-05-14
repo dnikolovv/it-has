@@ -47,6 +47,9 @@ instance Has EKG.Store Config where
 To this:
 
 @
+{-# LANGUAGE DeriveAnyClass #-}
+{-# LANGUAGE DeriveGeneric  #-}
+
 data Config =
   Config
     { configLogEnv      :: !LogEnv
@@ -63,7 +66,7 @@ E.g. you may want to define an `Error` type and enforce that it always has an `E
 @
 newtype ErrorText =
  ErrorText Text
- 
+
 data Error =
  ValidationError |
  NotFound |

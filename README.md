@@ -33,6 +33,9 @@ instance Has EKG.Store Config where
 To this:
 
 ```haskell
+{-# LANGUAGE DeriveAnyClass #-}
+{-# LANGUAGE DeriveGeneric  #-}
+
 data Config =
   Config
     { configLogEnv      :: !LogEnv
