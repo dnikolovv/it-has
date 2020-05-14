@@ -1,3 +1,5 @@
+![Haskell CI](https://github.com/dnikolovv/it-has/workflows/Haskell%20CI/badge.svg)
+
 # it-has
 
 This is a (nearly) drop-in replacement of [data-has](http://hackage.haskell.org/package/data-has). The differences with the original package are that this one misses `hasLens` and uses `Generic` for its default implementation. Your initial reaction may be to start mourning the loss of `hasLens`, but first take a look at the cool things you can do without it!
