@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: e45e69156310a760b715fe8a8b87d9a8cf831985a9f9f6c267234fe0b60ddcca
+-- hash: bfe8f0c0584b30d3e56a036f44845a917b11b45b35dc75b6133a965887d5b41b
 
 name:           it-has
 version:        0.1.0.0
@@ -51,6 +51,5 @@ test-suite it-has-test
       QuickCheck
     , base >=4.7 && <5
     , generic-lens >=1.2.0 && <1.3
-    , hspec
     , it-has
   default-language: Haskell2010

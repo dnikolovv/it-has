@@ -7,7 +7,6 @@
 import           Control.Monad (void)
 import           Data.Has
 import           GHC.Generics    (Generic)
-import           Test.Hspec
 import           Test.QuickCheck (Arbitrary, quickCheckAll)
 
 newtype LogConfig =
@@ -36,7 +35,8 @@ data SomeConfig =
     , someConfigDatabaseConfig :: DatabaseConfig
     , someConfigSomeUrl        :: SomeUrl
     } deriving
-      ( Generic
+      ( Eq
+      , Generic
       , Has LogConfig
       , Has DatabaseConfig
       , Has SomeUrl )
@@ -58,6 +58,13 @@ prop_returnsSetValuesForRecord logConfig dbConfig someUrl =
      getter config == dbConfig &&
      getter config == someUrl
 
+prop_setsCorrectValues :: (LogConfig, DatabaseConfig, SomeUrl) -> (LogConfig, DatabaseConfig, SomeUrl) -> Bool
+prop_setsCorrectValues (logConfig, dbConfig, someUrl) (newLogConfig, newDbConfig, newSomeUrl) =
+  let config = SomeConfig logConfig dbConfig someUrl
+      expectedConfig = SomeConfig newLogConfig newDbConfig newSomeUrl
+      updatedConfig = modifier (const newLogConfig) . modifier (const newDbConfig) . modifier (const newSomeUrl) $ config
+  in updatedConfig == expectedConfig
+
 prop_returnsForcedFieldsForSumType :: ErrorText -> ErrorText -> Bool
 prop_returnsForcedFieldsForSumType firstErrorText secondErrorText =
   let firstError = ValidationError firstErrorText
@@ -70,4 +77,5 @@ return []
 main :: IO ()
 main = void runTests
 
+runTests :: IO Bool
 runTests = $quickCheckAll

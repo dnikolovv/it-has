@@ -35,9 +35,9 @@ instance Has JWTSettings Config where
   getter = configJwtSettings
   modifier f v = v { configJwtSettings = f (configJwtSettings v) }
 
-instance Has Metrics where
+instance Has Metrics Config where
   getter = configMetrics
-  modifier f v = v { configMetrics = f (configJwtSconfigMetricsettings v) }
+  modifier f v = v { configMetrics = f (configMetrics v) }
 
 instance Has EKG.Store Config where
   getter = configEkgStore
