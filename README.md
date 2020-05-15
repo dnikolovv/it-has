@@ -48,7 +48,7 @@ data Config =
     } deriving (Generic, Has LogEnv, Has JWTSettings, Has Metrics, Has EKG.Store)
 ```
 
-Another trick is that you can "force" a sum type to have a specific field defined.
+Another trick is that you can "force" a sum type to have a specific field defined. (and this is why you would use `it-has` over simply `generic-lens`)
 
 E.g. you may want to define an `Error` type and enforce that it always has an `ErrorText` attached to it.
 
